@@ -10,6 +10,9 @@
 * space ft -> toggle file trere
 * space sf -> search files (telescope)
 * ctrl t (in some file manager) -> open new tab
+* gt -> move to next tab to right
+* gT -> move to next tab to left
+* n gt -> move to nth tab
 * ctrl x -> close tab
 * ctrl x (in some file manager) -> split screen horizontally (stack vertically) 
 * ctrl v (in some file manager) -> split screen vertically (stack horizontally)
