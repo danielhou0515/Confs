@@ -9,13 +9,14 @@
 ## nvim shortcuts
 * space ft -> toggle file trere
 * space sf -> search files (telescope)
-* ctrl t (in some file manager) -> open new tab
+* ctrl t (in some file manager or just normal mode) -> open new tab
 * gt -> move to next tab to right
 * gT -> move to next tab to left
 * n gt -> move to nth tab
-* ctrl x -> close tab
+* ctrl w -> close tab
 * ctrl x (in some file manager) -> split screen horizontally (stack vertically) 
 * ctrl v (in some file manager) -> split screen vertically (stack horizontally)
 * ctrl (hjkl) -> move between splits (VIM keybindings)
-* SS -> save file (without close)
+* XX -> save file (without close)
+* zz, zt, zb -> put line as center, top, bottom
 
