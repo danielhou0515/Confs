@@ -199,12 +199,21 @@ require('lazy').setup({
   --     vim.cmd.colorscheme 'onedark'
   --   end,
   -- },
+  -- grayish background
+  -- {
+  --   "catppuccin/nvim",
+  --   name = "catppuccin-latte",
+  --   priority = 1000, 
+  --   config = function()
+  --     vim.cmd.colorscheme "catppuccin-latte"
+  --   end,
+  -- },
   {
-    "catppuccin/nvim",
-    name = "catppuccin-latte",
+    "folke/tokyonight.nvim",
+    name = "tokyonight-night",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme "catppuccin-latte"
+      vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
 
@@ -215,8 +224,9 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'catppuccin-latte',
---        theme = 'onedark',
+        theme = 'tokyonight-moon',
+        -- theme = 'catppuccin-latte',
+        -- theme = 'onedark',
         component_separators = '|',
         section_separators = '',
       },
@@ -403,6 +413,29 @@ require('telescope').setup {
     },
   },
 }
+local TelescopePrompt = {
+    TelescopePromptNormal = {
+        bg = '#2d3149',
+    },
+    TelescopePromptBorder = {
+        bg = '#2d3149',
+    },
+    TelescopePromptTitle = {
+        fg = '#2d3149',
+        bg = '#2d3149',
+    },
+    TelescopePreviewTitle = {
+        fg = '#1F2335',
+        bg = '#1F2335',
+    },
+    TelescopeResultsTitle = {
+        fg = '#1F2335',
+        bg = '#1F2335',
+    },
+}
+for hl, col in pairs(TelescopePrompt) do
+    vim.api.nvim_set_hl(0, hl, col)
+end
 
 -- [[ Configure nvim-tree]]
 require("nvim-tree").setup()
