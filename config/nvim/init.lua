@@ -280,6 +280,17 @@ require('lazy').setup({
       vim.keymap.set("n", "<leader>ft", ":NvimTreeToggle<CR>", { silent = true })
     end,
   },
+
+  -- github copilot
+  {
+    "github/copilot.vim",
+    config = function()
+      vim.cmd(":Copilot enable")
+      vim.g.copilot_no_tab_remap = true
+      vim.api.nvim_set_keymap("i", "<S-CR>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+    end,
+  },
+
   {
     "christoomey/vim-tmux-navigator",
     cmd = {
