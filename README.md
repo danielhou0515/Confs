@@ -1,5 +1,21 @@
 # Confs
 
+## Table of Contents
+- [Confs](#confs)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [tmux shortcuts](#tmux-shortcuts)
+    - [tmux sessions](#tmux-sessions)
+    - [tmux windows](#tmux-windows)
+    - [in tmux](#in-tmux)
+  - [nvim shortcuts](#nvim-shortcuts)
+    - [plugins](#plugins)
+    - [tabs management](#tabs-management)
+    - [modes](#modes)
+    - [saving/closing](#savingclosing)
+    - [navigation](#navigation)
+    - [editing](#editing)
+
 ## tmux shortcuts
 ### tmux sessions
 ```
@@ -12,6 +28,7 @@ tmux kill-session -t [name]                     kill session with name
 ctrl s s                                        list sessions
 ctrl s d                                        detach session
 ```
+----------------------------------------------------------------------------------------------------------------
 
 ### tmux windows
 ```
@@ -21,6 +38,7 @@ ctrl s d                                        detach session
 * ctrl s w                                      list windows
 * ctrl s &                                      kill window
 ```
+----------------------------------------------------------------------------------------------------------------
 
 ### in tmux
 ```
@@ -32,6 +50,7 @@ ctrl s d                                        detach session
 * q                                             quit scroll
 * ctrl m                                        toggle mouse mode (iterm)
 ```
+----------------------------------------------------------------------------------------------------------------
 
 ## nvim shortcuts
 ### plugins
@@ -54,9 +73,10 @@ leader D                                        go to definition of type
 K                                               show documentation (shorter) of thing under cursor
 ctrl k                                          show documentation (longer) of thing under cursor
 ```
+----------------------------------------------------------------------------------------------------------------
 
 
-## tabs management
+### tabs management
 ```
 * ctrl t (in file manager or normal mode)       open new tab
 * gt                                            move to next tab to right
@@ -68,17 +88,19 @@ ctrl k                                          show documentation (longer) of t
 * ctrl v (in some file manager)                 split screen vertically (stack horizontally)
 * ctrl (hjkl)                                   move between splits (VIM keybindings)
 ```
-
+----------------------------------------------------------------------------------------------------------------
 
 ### modes
 ```
 ctrl o (in insert mode)                         execute one command in command mode and go back to insert mode
 ```
+----------------------------------------------------------------------------------------------------------------
 
 ### saving/closing
 ```
 * XX                                            save file (without close)
 ```
+----------------------------------------------------------------------------------------------------------------
 
 ### navigation
 ```
@@ -92,6 +114,7 @@ ctrl o (in insert mode)                         execute one command in command m
 * { or }                                        go to next/prev blank line
 * * or #                                        go to next/prev word under cursor
 ```
+----------------------------------------------------------------------------------------------------------------
 
 ### editing
 ```
@@ -103,4 +126,5 @@ ctrl o (in insert mode)                         execute one command in command m
 * %/foo/bar/g                                   replace all foo with bar
 * .                                             repeat last command
 ```
+----------------------------------------------------------------------------------------------------------------
 
