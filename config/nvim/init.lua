@@ -224,7 +224,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'tokyonight-moon',
+        -- theme = 'tokyonight-night',
         -- theme = 'catppuccin-latte',
         -- theme = 'onedark',
         component_separators = '|',
@@ -495,8 +495,8 @@ vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { d
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
+    winblend = 0,
+    previewer = true,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
 
