@@ -382,7 +382,13 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Shortcut for Save
-vim.api.nvim_set_keymap('n', 'XX', ':w<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', 'XX', ':w<CR>', { noremap = true, silent = true })
+
+-- Remapping vertical motion
+vim.api.nvim_set_keymap('n', '<C-d>', '<C-d>zz', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-u>', '<C-u>zz', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'n', 'nzz', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'N', 'Nzz', { noremap = true, silent = true })
 
 --Shortcut for Closing Tab
 vim.api.nvim_set_keymap('n', '<C-x>', ':tabclose<CR>', { noremap = true, silent = true })
