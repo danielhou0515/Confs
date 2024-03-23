@@ -385,7 +385,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.api.nvim_set_keymap('n', 'XX', ':w<CR>', { noremap = true, silent = true })
 
 --Shortcut for Closing Tab
-vim.api.nvim_set_keymap('n', '<C-w>', ':tabclose<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-x>', ':tabclose<CR>', { noremap = true, silent = true })
 
 -- Shortcut for Creating tab
 vim.api.nvim_set_keymap('n', '<C-t>', ':tabnew<CR>', { noremap = true, silent = true })
