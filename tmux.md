@@ -28,7 +28,7 @@ ctrl s &                                        kill window
 ctrl (hjkl)                                     move between panels (VIM keybindings)
 ctrl s "                                        open panel (stack vertically)
 ctrl s %                                        open panel (stack horizontally)
-ctrl s x                                      close panel
+ctrl s x                                        close panel
 ```
 ----------------------------------------------------------------------------------------------------------------
 

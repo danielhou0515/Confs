@@ -1,5 +1,5 @@
 ## harpoon shortcuts
-### harpoon-commands
+### harpoon commands
 ```
 space h m                                       open harpoon menu
 space h a                                       harpoon file
