@@ -30,9 +30,6 @@ gT                                            move to next tab to left
 n gt                                          move to nth tab
 
 ctrl w                                        close tab
-ctrl x (in some file manager)                 split screen horizontally (stack vertically) 
-ctrl v (in some file manager)                 split screen vertically (stack horizontally)
-ctrl (hjkl)                                   move between splits (VIM keybindings)
 ```
 ----------------------------------------------------------------------------------------------------------------
 
@@ -41,6 +38,10 @@ ctrl (hjkl)                                   move between splits (VIM keybindin
 <Ctrl-w> s                                    split window horizontally
 <Ctrl-w> v                                    split window vertically
 <Ctrl-w> q                                    close window
+
+ctrl x (in some file manager)                 split screen horizontally (stack vertically) 
+ctrl v (in some file manager)                 split screen vertically (stack horizontally)
+ctrl (hjkl)                                   move between splits (VIM keybindings)
 
 <Ctrl-w> -                                    decrease height of split by 1 line
 <Ctrl-w> +                                    increase height of split by 1 line

@@ -267,6 +267,25 @@ require('lazy').setup({
   },
 
   {
+    "theprimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("harpoon"):setup()
+    end,
+    keys = {
+      { "<leader>ha", function() require("harpoon"):list():append() end, desc = "harpoon file", },
+      { "<leader>hm", function() local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "harpoon quick menu", },
+      { "<leader>h", function() require("harpoon"):list():select(1) end, desc = "harpoon to file 1", },
+      { "<leader>j", function() require("harpoon"):list():select(2) end, desc = "harpoon to file 2", },
+      { "<leader>k", function() require("harpoon"):list():select(3) end, desc = "harpoon to file 3", },
+      { "<leader>l", function() require("harpoon"):list():select(4) end, desc = "harpoon to file 4", },
+      { "<leader>n", function() require("harpoon"):list():next() end, desc = "harpoon next", },
+      { "<leader>N", function() require("harpoon"):list():prev() end, desc = "harpoon prev", },
+    },
+  },
+
+  {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
