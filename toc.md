@@ -12,6 +12,7 @@
     - [vim panes](#vim-panes)
     - [navigation](#navigation)
     - [editing](#editing)
+    - [diagnostics](#diagnostics)
   - [harpoon shortcuts](#harpoon-shortcuts)
     - [harpoon commands](#harpoon-commands)
   - [telescope shortcuts](#telescope-shortcuts)

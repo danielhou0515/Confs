@@ -44,9 +44,20 @@ O                                               add line above
 ]p                                              paste with correct indentation
 %/foo/bar/g                                     replace all foo with bar
 .                                               repeat last command
-di'                                             delete inside single quotes (ex)
-ci'                                             change inside single quotes (ex)
-da'                                             delete around single quotes (ex)
+v/c/d ip                                        highlight/change/delete inside _ (paragraph, words, quotes, etc.) pos does not matter
+v/c/d ap                                        highlight/change/delete around _ (paragraph, words, quotes, etc.) pos does not matter
+v/c/d t/f [char]                                highlight/change/delete until/forward _ (words, quotes, etc.)
+
+=ap                                             auto indent paragraph
+
+o                                               switch highlight position (visual mode)
 ```
 ----------------------------------------------------------------------------------------------------------------
 
+### diagnostics
+```
+space e                                         open diagnostics list on line
+space q                                         open all diagnostics
+[/] d                                           go to next/prev diagnostic
+```
+----------------------------------------------------------------------------------------------------------------
