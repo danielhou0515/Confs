@@ -23,6 +23,7 @@ ctrl (hjkl)                                     move between splits (VIM keybind
 zz, zt, zb                                      put line as center, top, bottom
 ctrl ]                                          go to tag
 ctrl o                                          go back
+ctrl i                                          go forward
 
 m[char]                                         mark cursor location as [char]
 '[char]                                         go to marked cursor location
@@ -42,7 +43,6 @@ V                                               linewise visual mode
 O                                               add line above
 
 ]p                                              paste with correct indentation
-%/foo/bar/g                                     replace all foo with bar
 .                                               repeat last command
 v/c/d ip                                        highlight/change/delete inside _ (paragraph, words, quotes, etc.) pos does not matter
 v/c/d ap                                        highlight/change/delete around _ (paragraph, words, quotes, etc.) pos does not matter
@@ -59,5 +59,19 @@ o                                               switch highlight position (visua
 space e                                         open diagnostics list on line
 space q                                         open all diagnostics
 [/] d                                           go to next/prev diagnostic
+```
+----------------------------------------------------------------------------------------------------------------
+
+### substitution
+```
+% makes in file
+/g makes global (within a scope)
+/c makes confirmation
+
+:s/foo/bar                                      replace first foo with bar in line
+:s/foo/bar/g                                    replace all foo with bar in line
+:#,#s/foo/bar/g                                 replace all foo with bar in range of (#, #)
+:%s/foo/bar/g                                   replace all foo with bar in file
+:%s/foo/bar/gc                                  replace all foo with bar in line with confirmation
 ```
 ----------------------------------------------------------------------------------------------------------------

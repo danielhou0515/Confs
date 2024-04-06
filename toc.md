@@ -13,6 +13,7 @@
     - [navigation](#navigation)
     - [editing](#editing)
     - [diagnostics](#diagnostics)
+    - [substition](#substition)
   - [harpoon shortcuts](#harpoon-shortcuts)
     - [harpoon commands](#harpoon-commands)
   - [telescope shortcuts](#telescope-shortcuts)

@@ -29,6 +29,7 @@ ctrl (hjkl)                                     move between panels (VIM keybind
 ctrl s "                                        open panel (stack vertically)
 ctrl s %                                        open panel (stack horizontally)
 ctrl s x                                        close panel
+ctrl s z                                        toggle panel full screen
 ```
 ----------------------------------------------------------------------------------------------------------------
 

@@ -208,14 +208,47 @@ require('lazy').setup({
   --     vim.cmd.colorscheme "catppuccin-latte"
   --   end,
   -- },
+   -- {
+   --   "folke/tokyonight.nvim",
+   --   name = "tokyonight-night",
+   --   priority = 1000,
+   --   config = function()
+   --     vim.cmd.colorscheme 'tokyonight-night'
+   --   end,
+   -- },
   {
     "folke/tokyonight.nvim",
     name = "tokyonight-night",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'tokyonight-night'
+      -- Setting up the tokyonight theme with your custom configuration
+      require("tokyonight").setup({
+        style = "night", -- Choose between `storm`, `moon`, `night` and `day`
+        light_style = "night", -- Theme style when background is set to light
+        transparent = false, -- Disable background color
+        terminal_colors = true, -- Set colors for `:terminal`
+        styles = {
+          comments = { italic = true },
+          keywords = { italic = true },
+          functions = {},
+          variables = {},
+          sidebars = "dark",
+          floats = "dark",
+        },
+        sidebars = { "qf", "help" }, -- Darker background for sidebar-like windows
+        day_brightness = 0.3, -- Adjust brightness for **Day** style
+        hide_inactive_statusline = false, -- Hide inactive statuslines
+        dim_inactive = false, -- Dim inactive windows
+        lualine_bold = false, -- Bold section headers in lualine
+        on_colors = function(colors) end, -- Custom color overrides
+        on_highlights = function(highlights, colors) end, -- Custom highlight overrides
+      })
+
+      -- After setting up, set the colorscheme
+      vim.cmd[[colorscheme tokyonight]]
     end,
   },
+
 
   {
     -- Set lualine as statusline
@@ -389,6 +422,7 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+vim.opt.guicursor = "n-v-i-c:block-Cursor"
 
 -- [[ Basic Keymaps ]]
 
@@ -408,6 +442,12 @@ vim.api.nvim_set_keymap('n', 'N', 'Nzz', { noremap = true, silent = true })
 
 -- Remapping paste replaced
 vim.api.nvim_set_keymap('n', '<leader>p', "\"_dP", { noremap = true, silent = true })
+
+-- Remapping window navigation
+-- vim.api.nvim_set_keymap('n', '<C-h>', "<C-w>h", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<C-j>', "<C-w>j", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<C-k>', "<C-w>k", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<C-l>', "<C-w>j", { noremap = true, silent = true })
 
 --Shortcut for Closing Tab
 vim.api.nvim_set_keymap('n', '<C-x>', ':tabclose<CR>', { noremap = true, silent = true })
@@ -439,8 +479,8 @@ require('telescope').setup {
   defaults = {
     mappings = {
       i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
+        ['<C-u>'] = actions.preview_scrolling_up,
+        ['<C-d>'] = actions.preview_scrolling_down,
         ['<C-j>'] = actions.move_selection_next,
         ['<C-k>'] = actions.move_selection_previous,
         ['<C-n>'] = actions.cycle_history_next,
