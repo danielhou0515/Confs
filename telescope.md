@@ -2,7 +2,13 @@
 ### telescope commands
 ```
 space ft                                        toggle file tree
-space sf                                        search files in dir
+space gf                                        search files in dir (just git files)
+space sf                                        search files in dir (hidden files)
+space sg                                        search by grep in dir
+space sG                                        search by grep in dir (git dir)
+space ut                                        open undo tree
+space s/                                        search in open files
+space sd                                        search diagnostics
 
 space space                                     search files in buffer
 space /                                         search words in current buffer

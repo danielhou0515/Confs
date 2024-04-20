@@ -218,30 +218,17 @@ require('lazy').setup({
    -- },
   {
     "folke/tokyonight.nvim",
-    name = "tokyonight-night",
+    name = "tokyonight",
     priority = 1000,
     config = function()
       -- Setting up the tokyonight theme with your custom configuration
       require("tokyonight").setup({
         style = "night", -- Choose between `storm`, `moon`, `night` and `day`
-        light_style = "night", -- Theme style when background is set to light
-        transparent = false, -- Disable background color
-        terminal_colors = true, -- Set colors for `:terminal`
         styles = {
-          comments = { italic = true },
-          keywords = { italic = true },
-          functions = {},
-          variables = {},
-          sidebars = "dark",
-          floats = "dark",
+          -- Background styles. Can be "dark", "transparent" or "normal"
+          sidebars = "normal", -- style for sidebars, see below
+          floats = "normal", -- style for floating windows
         },
-        sidebars = { "qf", "help" }, -- Darker background for sidebar-like windows
-        day_brightness = 0.3, -- Adjust brightness for **Day** style
-        hide_inactive_statusline = false, -- Hide inactive statuslines
-        dim_inactive = false, -- Dim inactive windows
-        lualine_bold = false, -- Bold section headers in lualine
-        on_colors = function(colors) end, -- Custom color overrides
-        on_highlights = function(highlights, colors) end, -- Custom highlight overrides
       })
 
       -- After setting up, set the colorscheme
@@ -284,6 +271,7 @@ require('lazy').setup({
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
+      'debugloop/telescope-undo.nvim',
       -- Fuzzy Finder Algorithm which requires local dependencies to be built.
       -- Only load if `make` is available. Make sure you have the system
       -- requirements installed.
@@ -297,6 +285,24 @@ require('lazy').setup({
         end,
       },
     },
+    config = function()
+      require("telescope").setup({
+      -- the rest of your telescope config goes here
+        opts = {
+          extensions = {
+            undo = {
+              side_by_side = true,
+              layout_strategy = "vertical",
+              layout_config = {
+                preview_height = 0.8,
+              },
+            },
+          },
+        }
+      })
+      require("telescope").load_extension("undo")
+      vim.keymap.set("n", "<leader>ut", "<cmd>Telescope undo<cr>")
+    end,
   },
 
   {
@@ -304,7 +310,7 @@ require('lazy').setup({
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("harpoon"):setup()
+      require("harpoon"):setup({})
     end,
     keys = {
       { "<leader>ha", function() require("harpoon"):list():append() end, desc = "harpoon file", },
@@ -441,7 +447,7 @@ vim.api.nvim_set_keymap('n', 'n', 'nzz', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'N', 'Nzz', { noremap = true, silent = true })
 
 -- Remapping paste replaced
-vim.api.nvim_set_keymap('n', '<leader>p', "\"_dP", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('x', '<leader>p', "\"_dP", { noremap = true, silent = true })
 
 -- Remapping window navigation
 -- vim.api.nvim_set_keymap('n', '<C-h>', "<C-w>h", { noremap = true, silent = true })
@@ -489,29 +495,29 @@ require('telescope').setup {
     },
   },
 }
-local TelescopePrompt = {
-    TelescopePromptNormal = {
-        bg = '#2d3149',
-    },
-    TelescopePromptBorder = {
-        bg = '#2d3149',
-    },
-    TelescopePromptTitle = {
-        fg = '#2d3149',
-        bg = '#2d3149',
-    },
-    TelescopePreviewTitle = {
-        fg = '#1F2335',
-        bg = '#1F2335',
-    },
-    TelescopeResultsTitle = {
-        fg = '#1F2335',
-        bg = '#1F2335',
-    },
-}
-for hl, col in pairs(TelescopePrompt) do
-    vim.api.nvim_set_hl(0, hl, col)
-end
+-- local TelescopePrompt = {
+--     TelescopePromptNormal = {
+--         bg = '#2d3149',
+--     },
+--     TelescopePromptBorder = {
+--         bg = '#2d3149',
+--     },
+--     TelescopePromptTitle = {
+--         fg = '#2d3149',
+--         bg = '#2d3149',
+--     },
+--     TelescopePreviewTitle = {
+--         fg = '#1F2335',
+--         bg = '#1F2335',
+--     },
+--     TelescopeResultsTitle = {
+--         fg = '#1F2335',
+--         bg = '#1F2335',
+--     },
+-- }
+-- for hl, col in pairs(TelescopePrompt) do
+--     vim.api.nvim_set_hl(0, hl, col)
+-- end
 
 -- [[ Configure nvim-tree]]
 require("nvim-tree").setup()
@@ -591,7 +597,7 @@ vim.defer_fn(function()
     ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-    auto_install = false,
+    auto_install = true,
 
     highlight = { enable = true },
     indent = { enable = true },
