@@ -349,6 +349,15 @@ require('lazy').setup({
     end,
   },
 
+  -- oil
+  {
+    'stevearc/oil.nvim',
+    config = function()
+      require('oil').setup({})
+      vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+    end,
+  },
+
   {
     "christoomey/vim-tmux-navigator",
     cmd = {
@@ -450,10 +459,10 @@ vim.api.nvim_set_keymap('n', 'N', 'Nzz', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('x', '<leader>p', "\"_dP", { noremap = true, silent = true })
 
 -- Remapping window navigation
--- vim.api.nvim_set_keymap('n', '<C-h>', "<C-w>h", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<C-j>', "<C-w>j", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<C-k>', "<C-w>k", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<C-l>', "<C-w>j", { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', '<C-h>', "<C-w>h", { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', '<C-j>', "<C-w>j", { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', '<C-k>', "<C-w>k", { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', '<C-l>', "<C-w>j", { noremap = true, silent = true })
 
 --Shortcut for Closing Tab
 vim.api.nvim_set_keymap('n', '<C-x>', ':tabclose<CR>', { noremap = true, silent = true })
