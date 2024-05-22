@@ -51,6 +51,10 @@ v/c/d t/f [char]                                highlight/change/delete until/fo
 =ap                                             auto indent paragraph
 
 o                                               switch highlight position (visual mode)
+K                                               move block of code up
+J                                               move block of code down
+space d                                         delete line (visual mode)
+space dd                                        delete line (normal mode)
 ```
 ----------------------------------------------------------------------------------------------------------------
 

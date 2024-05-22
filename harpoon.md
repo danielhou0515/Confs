@@ -1,8 +1,8 @@
 ## harpoon shortcuts
 ### harpoon commands
 ```
-space h m                                       open harpoon menu
-space h a                                       harpoon file
+space m                                         open harpoon menu
+space a                                         harpoon file
 space h                                         go to file 1
 space h                                         go to file 2
 space h                                         go to file 3

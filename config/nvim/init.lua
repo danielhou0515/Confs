@@ -203,7 +203,7 @@ require('lazy').setup({
   -- {
   --   "catppuccin/nvim",
   --   name = "catppuccin-latte",
-  --   priority = 1000, 
+  --   priority = 1000,
   --   config = function()
   --     vim.cmd.colorscheme "catppuccin-latte"
   --   end,
@@ -313,8 +313,8 @@ require('lazy').setup({
       require("harpoon"):setup({})
     end,
     keys = {
-      { "<leader>ha", function() require("harpoon"):list():append() end, desc = "harpoon file", },
-      { "<leader>hm", function() local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "harpoon quick menu", },
+      { "<leader>a", function() require("harpoon"):list():append() end, desc = "harpoon file", },
+      { "<leader>m", function() local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "harpoon quick menu", },
       { "<leader>h", function() require("harpoon"):list():select(1) end, desc = "harpoon to file 1", },
       { "<leader>j", function() require("harpoon"):list():select(2) end, desc = "harpoon to file 2", },
       { "<leader>k", function() require("harpoon"):list():select(3) end, desc = "harpoon to file 3", },
@@ -354,7 +354,8 @@ require('lazy').setup({
     'stevearc/oil.nvim',
     config = function()
       require('oil').setup({})
-      vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+    vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     end,
   },
 
@@ -832,6 +833,24 @@ cmp.setup {
     { name = 'path' },
   },
 }
+
+-- Remove trailing white space on save
+vim.api.nvim_exec([[
+  augroup TrimWhitespace
+    autocmd!
+    autocmd BufWritePre * %s/\s\+$//e
+  augroup END
+]], false)
+
+-- move select line(s) up or down
+vim.api.nvim_set_keymap('v', 'K', ":move '<-2<CR>gv=gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', 'J', ":move '>+1<CR>gv=gv", { noremap = true, silent = true })
+
+-- delete without yanking (visual mode)
+vim.api.nvim_set_keymap('v', '<leader>d', '"_dd', { desc = "delete without yanking", noremap = true, silent = true })
+
+-- delete without yanking (normal mode)
+vim.api.nvim_set_keymap('n', '<leader>dd', '"_dd', { desc = "delete without yanking", noremap = true, silent = true })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
