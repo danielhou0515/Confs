@@ -142,6 +142,15 @@ space q                                         open all diagnostics
 :%s/foo/bar/gc                                  replace all foo with bar in line with confirmation
 ```
 ----------------------------------------------------------------------------------------------------------------
+
+### autocompete
+```
+tab                                             autocomplete for copilot
+ctrl j/k                                        move down/up in suggestions
+enter                                           select suggestion
+ctrl e                                          close suggestions
+```
+----------------------------------------------------------------------------------------------------------------
 ## harpoon shortcuts
 ### harpoon commands
 ```
