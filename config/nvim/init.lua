@@ -91,7 +91,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -116,7 +116,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -208,14 +208,14 @@ require('lazy').setup({
   --     vim.cmd.colorscheme "catppuccin-latte"
   --   end,
   -- },
-   -- {
-   --   "folke/tokyonight.nvim",
-   --   name = "tokyonight-night",
-   --   priority = 1000,
-   --   config = function()
-   --     vim.cmd.colorscheme 'tokyonight-night'
-   --   end,
-   -- },
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   name = "tokyonight-night",
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme 'tokyonight-night'
+  --   end,
+  -- },
   {
     "folke/tokyonight.nvim",
     name = "tokyonight",
@@ -227,12 +227,12 @@ require('lazy').setup({
         styles = {
           -- Background styles. Can be "dark", "transparent" or "normal"
           sidebars = "normal", -- style for sidebars, see below
-          floats = "normal", -- style for floating windows
+          floats = "normal",   -- style for floating windows
         },
       })
 
       -- After setting up, set the colorscheme
-      vim.cmd[[colorscheme tokyonight]]
+      vim.cmd [[colorscheme tokyonight]]
     end,
   },
 
@@ -259,7 +259,9 @@ require('lazy').setup({
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = 'ibl',
-    opts = {},
+    opts = {
+      exclude = { filetypes = {"dashboard"} }
+    },
   },
 
   -- "gc" to comment visual regions/lines
@@ -287,7 +289,7 @@ require('lazy').setup({
     },
     config = function()
       require("telescope").setup({
-      -- the rest of your telescope config goes here
+        -- the rest of your telescope config goes here
         opts = {
           extensions = {
             undo = {
@@ -313,14 +315,17 @@ require('lazy').setup({
       require("harpoon"):setup({})
     end,
     keys = {
-      { "<leader>a", function() require("harpoon"):list():append() end, desc = "harpoon file", },
-      { "<leader>m", function() local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "harpoon quick menu", },
-      { "<leader>h", function() require("harpoon"):list():select(1) end, desc = "harpoon to file 1", },
-      { "<leader>j", function() require("harpoon"):list():select(2) end, desc = "harpoon to file 2", },
-      { "<leader>k", function() require("harpoon"):list():select(3) end, desc = "harpoon to file 3", },
-      { "<leader>l", function() require("harpoon"):list():select(4) end, desc = "harpoon to file 4", },
-      { "<leader>n", function() require("harpoon"):list():next() end, desc = "harpoon next", },
-      { "<leader>N", function() require("harpoon"):list():prev() end, desc = "harpoon prev", },
+      { "<leader>a", function() require("harpoon"):list():append() end,                                              desc = "harpoon file", },
+      { "<leader>m", function()
+        local harpoon = require("harpoon")
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end,                                                                                                           desc = "harpoon quick menu", },
+      { "<leader>h", function() require("harpoon"):list():select(1) end,                                             desc = "harpoon to file 1", },
+      { "<leader>j", function() require("harpoon"):list():select(2) end,                                             desc = "harpoon to file 2", },
+      { "<leader>k", function() require("harpoon"):list():select(3) end,                                             desc = "harpoon to file 3", },
+      { "<leader>l", function() require("harpoon"):list():select(4) end,                                             desc = "harpoon to file 4", },
+      { "<leader>n", function() require("harpoon"):list():next() end,                                                desc = "harpoon next", },
+      { "<leader>N", function() require("harpoon"):list():prev() end,                                                desc = "harpoon prev", },
     },
   },
 
@@ -339,7 +344,6 @@ require('lazy').setup({
     end,
   },
 
-  -- github copilot
   {
     "github/copilot.vim",
     config = function()
@@ -352,10 +356,88 @@ require('lazy').setup({
   {
     'stevearc/oil.nvim',
     config = function()
-      require('oil').setup({})
+      local oil = require("oil")
+      local util = require("oil.util")
+      local preview_action = {
+        desc = "Open the entry under the cursor in a preview window, or close the preview window if already open",
+        callback = function()
+          local entry = oil.get_cursor_entry()
+          if not entry then
+            vim.notify("Could not find entry under cursor", vim.log.levels.ERROR)
+            return
+          end
+          local winid = util.get_preview_win()
+          if winid then
+            local cur_id = vim.w[winid].oil_entry_id
+            if entry.id == cur_id then
+              vim.api.nvim_win_close(winid, true)
+              return
+            end
+          end
+          oil.open_preview({ split = "belowright" })
+        end,
+      }
+      require('oil').setup({
+        keymaps = {
+          ["<C-p>"] = preview_action,
+          ["<C-c>"] = "actions.close",
+          ["g."] = "actions.toggle_hidden",
+          ["`"] = "actions.cd",
+          ["-"] = "actions.parent",
+          ["<CR>"] = "actions.select",
+          ["_"] = "actions.open_cwd",
+        },
 
-    vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+        use_default_keymaps = false,
+      })
+
+      vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+      vim.keymap.set("n", "<C-p>", "<CMD>lua require(\"oil\").open_preview({split = \"belowright\"})<CR>:")
     end,
+  },
+
+  -- dashboard
+  {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    opts = {
+      theme = 'doom',
+      config = {
+        header = {
+          'Neovim',
+          '',
+        },
+        -- header = {
+        --     '',
+        --     '',
+        --     '',
+        --     ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+        --     ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+        --     ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+        --     ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+        --     ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+        --     ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+        --     '',
+        -- },
+        center = {
+          { action = 'Telescope find_files', desc = ' Find file', icon = ' ', key = 'f' },
+          { action = 'enew | startinsert', desc = ' New file', icon = ' ', key = 'n' },
+          { action = 'Oil', desc = ' File explorer', icon = ' ', key = '-' },
+          { action = 'Telescope oldfiles', desc = ' Recent files', icon = ' ', key = 'r' },
+          { action = 'Telescope live_grep', desc = ' Find text', icon = ' ', key = 'g' },
+          { action = 'Lazy', desc = ' Lazy', icon = '💤', key = 'l' },
+          { action = 'qa', desc = ' Quit', icon = ' ', key = 'q' },
+        },
+        footer = function()
+          local stats = require('lazy').stats()
+          local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+          return { '⚡ Neovim loaded ' .. stats.loaded .. '/' .. stats.count .. ' plugins in ' .. ms .. 'ms' }
+        end,
+      },
+      hide = {
+        tabline = false,
+      },
+    },
   },
 
   {
@@ -368,10 +450,10 @@ require('lazy').setup({
       "TmuxNavigatePrevious",
     },
     keys = {
-      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-h>",  "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>",  "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>",  "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>",  "<cmd><C-U>TmuxNavigateRight<cr>" },
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
@@ -413,10 +495,10 @@ vim.o.clipboard = 'unnamedplus'
 vim.o.breakindent = true
 
 -- Set tabs to 2 spaces
-vim.o.tabstop = 2 -- A TAB character looks like 4 spaces
+vim.o.tabstop = 2      -- A TAB character looks like 4 spaces
 vim.o.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
-vim.o.softtabstop = 2 -- Number of spaces inserted instead of a TAB character
-vim.o.shiftwidth = 2 -- Number of spaces inserted when indenting
+vim.o.softtabstop = 2  -- Number of spaces inserted instead of a TAB character
+vim.o.shiftwidth = 2   -- Number of spaces inserted when indenting
 
 -- Save undo history
 vim.o.undofile = true
@@ -804,7 +886,7 @@ cmp.setup {
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>']=cmp.mapping.confirm({select=false}),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
     -- ['<CR>'] = cmp.mapping.confirm {
     --   behavior = cmp.ConfirmBehavior.Replace,
     --   select = true,
@@ -836,22 +918,22 @@ cmp.setup {
 }
 
 -- Remove trailing white space on save
-vim.api.nvim_exec([[
+vim.api.nvim_exec2([[
   augroup TrimWhitespace
     autocmd!
     autocmd BufWritePre * %s/\s\+$//e
   augroup END
-]], false)
+]], {})
 
 -- move select line(s) up or down
 vim.api.nvim_set_keymap('v', 'K', ":move '<-2<CR>gv=gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'J', ":move '>+1<CR>gv=gv", { noremap = true, silent = true })
 
 -- delete without yanking (visual mode)
-vim.api.nvim_set_keymap('v', '<leader>d', '"_dd', { desc = "delete without yanking", noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>d', '"_d', { desc = "delete without yanking", noremap = true, silent = true })
 
 -- delete without yanking (normal mode)
-vim.api.nvim_set_keymap('n', '<leader>dd', '"_dd', { desc = "delete without yanking", noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>d', '"_dd', { desc = "delete without yanking", noremap = true, silent = true })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
